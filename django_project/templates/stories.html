@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Voices of Heritage — Oral Histories & Living Spoken Memory{% endblock %}
+
+{% block content %}
+<section class="page-header-section">
+  <div class="section-container">
+    <span class="kicker-text">Spoken Traditions & Living Memory · Unwritten Archives</span>
+    <h1 class="page-title">Voices of Heritage</h1>
+    <p class="page-subtitle">Preserving stories and knowledge shared by village elders, farmers, artisans, and bards.</p>
+  </div>
+</section>
+
+<section class="stories-page-section">
+  <div class="section-container">
+    <div class="stories-grid-container">
+      {% for story in stories %}
+        <article class="story-card-full">
+          <div class="story-card-header">
+            <div class="story-avatar-wrapper">
+              <img src="{% static 'images/elder_oral_storyteller.jpg' %}" alt="{{ story.contributor }}">
+            </div>
+            <div class="story-header-text">
+              <span class="story-category-tag">{{ story.category }} · {{ story.recorded_date }}</span>
+              <h2 class="story-title">“{{ story.title }}”</h2>
+              <div class="story-byline">
+                <strong>By {{ story.contributor }}</strong>
+                <span>{{ story.contributor_role }}</span>
+                <span>📍 {{ story.location }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card-body">
+            <p class="story-summary">{{ story.description }}</p>
+
+            <!-- Audio Player Mock/Controls -->
+            <div class="audio-control-bar">
+              <button class="btn-play-pause" onclick="toggleAudio('audio-{{ story.id }}', this)">
+                <span class="play-icon">▶</span> Listen to Story
+              </button>
+              <div class="audio-track-info">
+                <span class="track-title">{{ story.audio_sample_name|default:"Field Audio Recording" }}</span>
+                <span class="track-duration">Recorded in village commons</span>
+              </div>
+            </div>
+
+            <!-- Transcript Accordion -->
+            {% if story.transcript %}
+              <div class="transcript-box">
+                <button class="btn-toggle-transcript" onclick="toggleTranscript('transcript-{{ story.id }}')">
+                  📄 Toggle Spoken Transcript
+                </button>
+                <div id="transcript-{{ story.id }}" class="transcript-content" style="display: none;">
+                  <p class="transcript-lead">Spoken Narrative Transcript:</p>
+                  <blockquote class="transcript-text">
+                    {{ story.transcript|linebreaks }}
+                  </blockquote>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function toggleTranscript(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
+  }
+
+  function toggleAudio(id, btn) {
+    if (btn.classList.contains('playing')) {
+      btn.classList.remove('playing');
+      btn.innerHTML = '▶ Listen to Story';
+    } else {
+      btn.classList.add('playing');
+      btn.innerHTML = '❚❚ Playing Audio (Demo)';
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+{
+  "name": "Indian Heritage",
+  "description": "Digital platform for discovering, documenting, preserving and learning about India's traditional knowledge and cultural heritage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

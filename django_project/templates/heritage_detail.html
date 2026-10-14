@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ entry.name }} — Indian Heritage Dossier{% endblock %}
+
+{% block content %}
+<article class="dossier-page">
+  <div class="dossier-container">
+    
+    <!-- Top Back Navigation -->
+    <div class="dossier-back-nav">
+      <a href="{% url 'explore' %}" class="back-link">← Return to Heritage Directory</a>
+      <span class="dossier-tag">{{ entry.get_category_display }} · Record #{{ entry.id }}</span>
+    </div>
+
+    <!-- Hero Visual -->
+    <div class="dossier-hero">
+      {% if entry.image %}
+        <img src="{{ entry.image.url }}" alt="{{ entry.name }}" class="dossier-hero-img">
+      {% elif entry.image_url %}
+        <img src="{{ entry.image_url }}" alt="{{ entry.name }}" class="dossier-hero-img">
+      {% else %}
+        <img src="{% static 'images/kalamkari_textile_art.jpg' %}" alt="{{ entry.name }}" class="dossier-hero-img">
+      {% endif %}
+      <div class="dossier-hero-overlay">
+        <span class="dossier-location">📍 {{ entry.village }}{% if entry.village %}, {% endif %}{{ entry.district }}{% if entry.district %}, {% endif %}{{ entry.state }}</span>
+        <span class="dossier-status">{{ entry.get_preservation_status_display }}</span>
+      </div>
+    </div>
+
+    <!-- Title Header -->
+    <header class="dossier-header">
+      <h1 class="dossier-title">{{ entry.name }}</h1>
+      <p class="dossier-lead">{{ entry.full_description|default:entry.short_description }}</p>
+    </header>
+
+    <!-- 2-Col Content Grid -->
+    <div class="dossier-grid">
+      <div class="dossier-main-col">
+        
+        <!-- History -->
+        <section class="dossier-section">
+          <h2>Historical Provenance</h2>
+          <p class="history-text">{{ entry.history }}</p>
+        </section>
+
+        <!-- Traditional Practice -->
+        <section class="dossier-section">
+          <h2>How it is Traditionally Practiced</h2>
+          <p>{{ entry.traditional_practice }}</p>
+        </section>
+
+        <!-- Cultural Significance -->
+        <section class="dossier-section">
+          <h2>Cultural & Community Significance</h2>
+          <p>{{ entry.cultural_significance }}</p>
+        </section>
+
+        <!-- Visual Knowledge Journey Timeline -->
+        <section class="dossier-section timeline-section">
+          <span class="kicker-text">Transmission Through Time</span>
+          <h2>Knowledge Journey</h2>
+
+          <div class="timeline-steps">
+            <div class="timeline-step">
+              <span class="step-num">01. Origin</span>
+              <p>Ancient communal origins developed in temple clusters and agrarian river valleys.</p>
+            </div>
+            <div class="timeline-step">
+              <span class="step-num">02. Traditional Practice</span>
+              <p>{{ entry.traditional_practice|truncatewords:20 }}</p>
+            </div>
+            <div class="timeline-step">
+              <span class="step-num">03. Generations</span>
+              <p>Oral transmission passed through guru-shishya and matrilineal/patrilineal artisan families.</p>
+            </div>
+            <div class="timeline-step">
+              <span class="step-num">04. Present Day</span>
+              <p>Sustained by elder master practitioners amidst modern synthetic alternatives.</p>
+            </div>
+            <div class="timeline-step">
+              <span class="step-num">05. Future Preservation</span>
+              <p>Community documentation, fair pricing cooperatives, and open digital archiving.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why Preserve This? -->
+        <section class="why-preserve-box">
+          <span class="why-kicker">Archival Philosophy</span>
+          <h3>Why preserve this?</h3>
+          <p>
+            Maintaining this traditional knowledge preserves millennia of zero-waste material science, local biodiversity, and ecological balance that industrial substitutes cannot reproduce. It sustains community dignity and indigenous wisdom.
+          </p>
+        </section>
+
+      </div>
+
+      <!-- Sidebar Metadata -->
+      <aside class="dossier-sidebar">
+        
+        <!-- Materials Card -->
+        <div class="sidebar-card">
+          <h4>Materials & Tools</h4>
+          {% if materials_list %}
+            <ul class="materials-list">
+              {% for m in materials_list %}
+                <li>· {{ m }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>{{ entry.materials_used }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Associated Communities -->
+        <div class="sidebar-card">
+          <h4>Associated Communities</h4>
+          <p>{{ entry.associated_communities|default:"Regional village guilds and elder practitioners" }}</p>
+        </div>
+
+        <!-- Current Challenges -->
+        <div class="sidebar-card warning-card">
+          <h4>Current Challenges</h4>
+          <p>{{ entry.current_challenges|default:"Economic displacement and youth migration to urban centers." }}</p>
+        </div>
+
+        <!-- Archival Provenance Note -->
+        <div class="sidebar-card metadata-card">
+          <h4>Archival Record</h4>
+          <p><strong>Contributor:</strong> {{ entry.contributor }}</p>
+          <p><strong>Status:</strong> {{ entry.get_verification_status_display }}</p>
+          <p><strong>Cataloged:</strong> {{ entry.created_at|date:"F Y" }}</p>
+          <div class="prototype-badge">Living Heritage Knowledge Archive</div>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- Related Traditions -->
+    {% if related_entries %}
+      <section class="related-traditions-section">
+        <h3>Related Living Traditions in {{ entry.get_category_display }}</h3>
+        <div class="related-grid">
+          {% for rel in related_entries %}
+            <a href="{% url 'heritage_detail' rel.slug %}" class="related-card">
+              <h4>{{ rel.name }}</h4>
+              <span>📍 {{ rel.state }} · {{ rel.get_preservation_status_display }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+  </div>
+</article>
+{% endblock %}

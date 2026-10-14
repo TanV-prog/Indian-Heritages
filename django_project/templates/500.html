@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}500 · Server Error — Indian Heritage{% endblock %}
+
+{% block content %}
+<section class="error-page-section">
+  <div class="error-box">
+    <span class="error-kicker">Notice · Server Error</span>
+    <h1 class="error-title">A Temporary Pause in Documenting</h1>
+    <p class="error-desc">
+      The archival system encountered an unexpected condition. Please refresh or return to the main directory.
+    </p>
+    <a href="{% url 'home' %}" class="btn-primary">Return to Village Square</a>
+  </div>
+</section>
+{% endblock %}

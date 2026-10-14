@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Learn From India's Heritage — Educational Modules & Quiz{% endblock %}
+
+{% block content %}
+<section class="page-header-section">
+  <div class="section-container">
+    <span class="kicker-text">Curricula for Students & Researchers · Open Educational Commons</span>
+    <h1 class="page-title">Learn From India's Heritage</h1>
+    <p class="page-subtitle">Interactive educational modules exploring indigenous agro-ecology, handlooms, and oral ballad memory.</p>
+  </div>
+</section>
+
+<section class="learn-page-section">
+  <div class="section-container">
+    
+    <!-- Modules Grid -->
+    <div class="modules-full-grid">
+      {% for mod in modules %}
+        <article class="module-full-card">
+          <div class="module-card-header">
+            <span class="mod-cat-badge">{{ mod.category }} · {{ mod.read_time }}</span>
+            <h2>{{ mod.title }}</h2>
+            <p class="mod-intro">{{ mod.introduction }}</p>
+          </div>
+
+          <div class="mod-card-body">
+            <!-- Key Facts -->
+            <div class="mod-block">
+              <h3>Key Ecological & Cultural Facts</h3>
+              <p class="pre-formatted-text">{{ mod.key_facts|linebreaks }}</p>
+            </div>
+
+            <!-- Traditional Process -->
+            <div class="mod-block">
+              <h3>Traditional Methodology</h3>
+              <p class="pre-formatted-text">{{ mod.traditional_process|linebreaks }}</p>
+            </div>
+
+            <!-- Cultural Significance -->
+            <div class="mod-block highlight-block">
+              <h3>Ethical & Community Significance</h3>
+              <p>{{ mod.cultural_significance }}</p>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <!-- Mini Quiz Section (JavaScript Powered) -->
+    <section class="quiz-container-box">
+      <div class="quiz-header">
+        <span class="quiz-kicker">Knowledge Verification</span>
+        <h2>Heritage Mini Quiz</h2>
+        <p>Test your understanding of India's living agricultural and craft traditions.</p>
+      </div>
+
+      <div id="quiz-app" class="quiz-interactive-widget">
+        <div id="quiz-question-container">
+          <div class="quiz-progress-strip">
+            <span id="quiz-question-number">Question 1 of 3</span>
+            <span id="quiz-score-badge">Score: 0</span>
+          </div>
+
+          <h3 id="quiz-question-title" class="quiz-question-text">
+            What is one important purpose of traditional seed preservation?
+          </h3>
+
+          <div id="quiz-options-list" class="quiz-options-grid">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div id="quiz-feedback-box" class="quiz-feedback" style="display: none;"></div>
+
+          <div class="quiz-actions-bar">
+            <button id="btn-submit-quiz" class="btn-primary" onclick="submitQuizAnswer()">Check Answer</button>
+            <button id="btn-next-quiz" class="btn-secondary" style="display: none;" onclick="nextQuizQuestion()">Next Question →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/quiz.js' %}"></script>
+{% endblock %}

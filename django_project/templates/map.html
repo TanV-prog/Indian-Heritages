@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Interactive India Heritage Map — Indian Heritage Archive{% endblock %}
+
+{% block content %}
+<section class="page-header-section">
+  <div class="section-container">
+    <span class="kicker-text">Geographical Knowledge Commons · OpenStreetMap</span>
+    <h1 class="page-title">Interactive India Heritage Map</h1>
+    <p class="page-subtitle">Discover living traditions, artisan guilds, and dryland agricultural knowledge across India's states.</p>
+  </div>
+</section>
+
+<section class="map-view-section">
+  <div class="section-container">
+    
+    <!-- Map Filter Toolbar -->
+    <div class="map-filter-bar">
+      <span class="filter-label">Filter by Tradition:</span>
+      <button class="map-filter-btn active" data-filter="all">All Heritage</button>
+      <button class="map-filter-btn" data-filter="farming">🌾 Farming</button>
+      <button class="map-filter-btn" data-filter="crafts">🧵 Crafts</button>
+      <button class="map-filter-btn" data-filter="folklore">📖 Folklore</button>
+      <button class="map-filter-btn" data-filter="food">🍲 Food</button>
+      <button class="map-filter-btn" data-filter="arts">🎭 Folk Arts</button>
+      <button class="map-filter-btn" data-filter="festivals">🎉 Festivals</button>
+      <button class="map-filter-btn" data-filter="indigenous">🌿 Indigenous Knowledge</button>
+    </div>
+
+    <!-- Map and Side Info Card Layout -->
+    <div class="map-layout-grid">
+      <div id="full-heritage-map" class="full-map-canvas"></div>
+      
+      <div class="map-info-sidebar">
+        <div id="map-marker-card" class="marker-info-card">
+          <span class="info-kicker">Interactive Inspector</span>
+          <h3>Select a Marker on the Map</h3>
+          <p>Click any location marker across Andhra Pradesh, Telangana, Rajasthan, Kerala, Nagaland, or Bengal to view details.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

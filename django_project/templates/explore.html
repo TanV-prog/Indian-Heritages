@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Explore Heritage — Indian Heritage Archive{% endblock %}
+
+{% block content %}
+<section class="page-header-section">
+  <div class="section-container">
+    <span class="kicker-text">Catalog & Search · Living Knowledge Base</span>
+    <h1 class="page-title">Explore Indian Heritage</h1>
+    <p class="page-subtitle">Search traditional practices, farming wisdom, crafts, bards, and village lore.</p>
+  </div>
+</section>
+
+<section class="explore-content-section">
+  <div class="section-container">
+    
+    <!-- Filter and Search Form -->
+    <form method="GET" action="{% url 'explore' %}" class="explore-filter-form">
+      <div class="search-input-group">
+        <input
+          type="text"
+          name="q"
+          value="{{ search_query }}"
+          placeholder="Search by tradition name, state, district, or craft..."
+          class="form-input"
+        >
+        <button type="submit" class="btn-search">Search</button>
+      </div>
+
+      <div class="filter-controls-group">
+        <div class="filter-item">
+          <label for="cat-select">Category:</label>
+          <select name="category" id="cat-select" onchange="this.form.submit()" class="form-select">
+            <option value="all" {% if not selected_category or selected_category == 'all' %}selected{% endif %}>All Categories</option>
+            <option value="farming" {% if selected_category == 'farming' %}selected{% endif %}>🌾 Traditional Farming</option>
+            <option value="crafts" {% if selected_category == 'crafts' %}selected{% endif %}>🧵 Local Crafts</option>
+            <option value="arts" {% if selected_category == 'arts' %}selected{% endif %}>🎭 Folk Arts</option>
+            <option value="folklore" {% if selected_category == 'folklore' %}selected{% endif %}>📖 Folklore & Stories</option>
+            <option value="food" {% if selected_category == 'food' %}selected{% endif %}>🍲 Traditional Food</option>
+            <option value="indigenous" {% if selected_category == 'indigenous' %}selected{% endif %}>🌿 Indigenous Knowledge</option>
+            <option value="festivals" {% if selected_category == 'festivals' %}selected{% endif %}>🎉 Festivals & Traditions</option>
+            <option value="village" {% if selected_category == 'village' %}selected{% endif %}>🏡 Village Life</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="status-select">Preservation Status:</label>
+          <select name="status" id="status-select" onchange="this.form.submit()" class="form-select">
+            <option value="all" {% if not selected_status or selected_status == 'all' %}selected{% endif %}>All Statuses</option>
+            <option value="thriving" {% if selected_status == 'thriving' %}selected{% endif %}>🟢 Thriving</option>
+            <option value="declining" {% if selected_status == 'declining' %}selected{% endif %}>🟡 Declining</option>
+            <option value="at_risk" {% if selected_status == 'at_risk' %}selected{% endif %}>🟠 At Risk</option>
+            <option value="endangered" {% if selected_status == 'endangered' %}selected{% endif %}>🔴 Critically Endangered</option>
+          </select>
+        </div>
+
+        {% if search_query or selected_category or selected_status %}
+          <a href="{% url 'explore' %}" class="btn-reset-filters">Clear All</a>
+        {% endif %}
+      </div>
+    </form>
+
+    <!-- Result Count Strip -->
+    <div class="results-header-strip">
+      <span>
+        <strong>{{ total_count }} heritage entries found</strong>
+        {% if search_query %} for &ldquo;{{ search_query }}&rdquo;{% endif %}
+      </span>
+      <span class="results-hint">Click any card to read the complete archival dossier.</span>
+    </div>
+
+    <!-- Cards Grid -->
+    {% if entries %}
+      <div class="traditions-grid">
+        {% for entry in entries %}
+          <article class="tradition-card">
+            <div class="card-img-wrapper">
+              {% if entry.image %}
+                <img src="{{ entry.image.url }}" alt="{{ entry.name }}">
+              {% elif entry.image_url %}
+                <img src="{{ entry.image_url }}" alt="{{ entry.name }}">
+              {% else %}
+                <img src="{% static 'images/kalamkari_textile_art.jpg' %}" alt="{{ entry.name }}">
+              {% endif %}
+              <span class="card-cat-tag">{{ entry.get_category_display }}</span>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="meta-location">📍 {{ entry.state }}</span>
+                <span class="meta-status">{{ entry.get_preservation_status_display }}</span>
+              </div>
+              <h3 class="card-title">{{ entry.name }}</h3>
+              <p class="card-snippet">{{ entry.short_description|truncatewords:22 }}</p>
+              <a href="{% url 'heritage_detail' entry.slug %}" class="card-action">Explore Story & Dossier →</a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state-box">
+        <h3>No matching heritage traditions found</h3>
+        <p>Try resetting your search query or adjusting the category filters.</p>
+        <a href="{% url 'explore' %}" class="btn-primary">View All Records</a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

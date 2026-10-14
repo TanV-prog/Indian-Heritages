@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 · Village Trail Not Found — Indian Heritage{% endblock %}
+
+{% block content %}
+<section class="error-page-section">
+  <div class="error-box">
+    <span class="error-kicker">Error 404 · Uncharted Trail</span>
+    <h1 class="error-title">This Village Trail Leads to Unrecorded Lands</h1>
+    <p class="error-desc">
+      The traditional knowledge or dossier you requested could not be located in our digital archives.
+    </p>
+    <a href="{% url 'home' %}" class="btn-primary">Return to Village Square</a>
+  </div>
+</section>
+{% endblock %}

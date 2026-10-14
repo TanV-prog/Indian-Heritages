@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- 1. Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-text-col">
+      <span class="kicker-text">From Knowledge to Continuity · Living Heritage Initiative</span>
+      <h1 class="hero-heading">India's Heritage, Preserved for Tomorrow.</h1>
+      <p class="hero-subtext">
+        From the hands of farmers and artisans to the stories of our elders — discover, document and carry India's living heritage forward.
+      </p>
+
+      <blockquote class="hero-quote">
+        “Heritage is not only something we remember. It is knowledge we pass on.”
+      </blockquote>
+
+      <div class="hero-cta-group">
+        <a href="{% url 'explore' %}" class="btn-primary">Explore Living Heritage</a>
+        <a href="{% url 'contribute' %}" class="btn-secondary">Preserve a Tradition</a>
+      </div>
+
+      <!-- Pipeline Strip -->
+      <div class="continuity-pipeline-strip">
+        <span class="strip-label">Continuity Pipeline:</span>
+        <div class="pipeline-tags">
+          <span>Identify</span> → <span>Document</span> → <span>Verify</span> → <span>Learn</span> → <span>Connect</span> → <span class="highlight">Continue</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual-col">
+      <div class="hero-image-wrapper">
+        <img src="{% static 'images/heritage_village_hero.jpg' %}" alt="Traditional Indian village courtyard with clay tiles and rangoli">
+        <div class="hero-caption">
+          <span>Living knowledge held in village spaces · Rural Deccan</span>
+          <span>Field Archive 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. From Archive to Action (Key Differentiator) -->
+<section class="archive-action-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">The Core Differentiator · Beyond Passive Storage</span>
+      <h2 class="section-title">From Archive to Action</h2>
+      <p class="section-desc">
+        India already possesses museums and static digital catalogs. But documentation alone does not guarantee that traditional knowledge survives.
+      </p>
+    </div>
+
+    <div class="comparison-grid">
+      <div class="comparison-card passive">
+        <span class="comp-badge">Conventional Archive</span>
+        <h3>Traditional Digital Archive</h3>
+        <p>Treats cultural knowledge as museum relics. Information sits passively in databases without training youth.</p>
+        <div class="linear-flow">
+          <div class="flow-step">01. Document</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">02. Store</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">03. Browse</div>
+        </div>
+        <p class="comp-result">Result: When the elder passes away, the craft remains only a photograph on a server.</p>
+      </div>
+
+      <div class="comparison-card active">
+        <span class="comp-badge active">Active Continuity Architecture</span>
+        <h3>Indian Heritage: From Knowledge to Continuity</h3>
+        <p>Connects elder knowledge holders with students, researchers, and apprentices through structured learning and risk monitoring.</p>
+        <div class="pipeline-matrix">
+          <div class="matrix-item"><strong>01. Document</strong><p>Botanical formulas & tools</p></div>
+          <div class="matrix-item"><strong>02. Verify</strong><p>Community peer review</p></div>
+          <div class="matrix-item alert"><strong>03. Assess Risk</strong><p>Identify transmission gaps</p></div>
+          <div class="matrix-item"><strong>04. Learn</strong><p>Modular student curricula</p></div>
+          <div class="matrix-item"><strong>05. Connect</strong><p>Direct mentor apprenticeships</p></div>
+          <div class="matrix-item highlight"><strong>06. Continue</strong><p>New living practitioners</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Heritage Health (Preservation Vitality Dashboard) -->
+<section class="health-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Preservation Health Monitor · Sample Data</span>
+      <h2 class="section-title">Heritage Continuity Health</h2>
+      <p class="section-desc">
+        Measuring the vitality of India's living traditions through practitioner numbers and generational transmission status.
+      </p>
+    </div>
+
+    <div class="health-metrics-grid">
+      <div class="health-stat-card">
+        <span class="stat-number">128</span>
+        <span class="stat-label">Documented Traditions</span>
+      </div>
+      <div class="health-stat-card warning">
+        <span class="stat-number">34</span>
+        <span class="stat-label">Traditions at Risk</span>
+      </div>
+      <div class="health-stat-card">
+        <span class="stat-number">76</span>
+        <span class="stat-label">Knowledge Keepers</span>
+      </div>
+      <div class="health-stat-card">
+        <span class="stat-number">214</span>
+        <span class="stat-label">Young Learners</span>
+      </div>
+      <div class="health-stat-card">
+        <span class="stat-number">42</span>
+        <span class="stat-label">Learning Modules</span>
+      </div>
+      <div class="health-stat-card">
+        <span class="stat-number">68</span>
+        <span class="stat-label">Villages Represented</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Traditions at Risk -->
+<section class="at-risk-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text text-danger">Urgent Transmission Gaps</span>
+      <h2 class="section-title">Traditions at Risk</h2>
+      <p class="section-desc">Some traditions may disappear when the knowledge holders disappear.</p>
+    </div>
+
+    <div class="at-risk-cards-grid">
+      {% for entry in featured_entries %}
+        {% if entry.preservation_status != 'thriving' %}
+          <article class="at-risk-card">
+            <div class="at-risk-img-wrap">
+              {% if entry.image_url %}
+                <img src="{{ entry.image_url }}" alt="{{ entry.name }}">
+              {% else %}
+                <img src="{% static 'images/kalamkari_textile_art.jpg' %}" alt="{{ entry.name }}">
+              {% endif %}
+              <span class="risk-badge">{{ entry.get_preservation_status_display }}</span>
+            </div>
+            <div class="at-risk-body">
+              <span class="entry-cat">{{ entry.get_category_display }} · 📍 {{ entry.state }}</span>
+              <h3>{{ entry.name }}</h3>
+              
+              <div class="risk-diagnostic">
+                <p><strong>What is at risk:</strong> {{ entry.short_description|truncatewords:15 }}</p>
+                <p><strong>Who holds knowledge:</strong> {{ entry.associated_communities|default:"Elder community practitioners" }}</p>
+                <p><strong>Holders documented:</strong> {{ entry.knowledge_holders_count }} Elders (Demo)</p>
+                <p><strong>Action needed:</strong> {{ entry.preservation_action_needed|default:"Document and connect with youth apprentices"|truncatewords:12 }}</p>
+              </div>
+
+              <a href="{% url 'heritage_detail' entry.slug %}" class="btn-primary-small">View Preservation Profile →</a>
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 5. Meet the Knowledge Keepers -->
+<section class="keepers-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Living Human Repositories · Mentors</span>
+      <h2 class="section-title">Meet the Knowledge Keepers</h2>
+      <p class="section-desc">
+        Heritage lives in human practitioners. Meet elders and master craftspeople willing to teach younger generations.
+      </p>
+    </div>
+
+    <div class="keepers-grid">
+      <div class="keeper-card">
+        <img src="{% static 'images/elder_oral_storyteller.jpg' %}" alt="Lakshmi Devi" class="keeper-avatar">
+        <span class="keeper-cat">Farming & Seed Banking</span>
+        <h3>Lakshmi Devi</h3>
+        <p class="keeper-loc">📍 Pastapur, Telangana · 54 yrs exp</p>
+        <p class="keeper-story">Preserves 42 indigenous drought-hardy millet strains in hand-plastered bamboo granaries.</p>
+        <span class="mentor-badge">✓ Open to Teach Learners</span>
+      </div>
+
+      <div class="keeper-card">
+        <img src="{% static 'images/kalamkari_textile_art.jpg' %}" alt="Koteswara Rao" class="keeper-avatar">
+        <span class="keeper-cat">Natural Dye Kalamkari</span>
+        <h3>Koteswara Rao</h3>
+        <p class="keeper-loc">📍 Srikalahasti, Andhra Pradesh · 48 yrs exp</p>
+        <p class="keeper-story">Master of 17-step river water washings, bamboo quill carving, and botanical dye extraction.</p>
+        <span class="mentor-badge">✓ Open to Teach Learners</span>
+      </div>
+
+      <div class="keeper-card">
+        <img src="{% static 'images/indigenous_millet_farm.jpg' %}" alt="Babu Lal Meena" class="keeper-avatar">
+        <span class="keeper-cat">Johad Rain Check Dams</span>
+        <h3>Babu Lal Meena</h3>
+        <p class="keeper-loc">📍 Thanagazi, Rajasthan · 50 yrs exp</p>
+        <p class="keeper-story">Constructs crescent earthen dams that revived dried underground aquifers in 5 villages.</p>
+        <span class="mentor-badge">✓ Open to Teach Learners</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. A Living Heritage Philosophy -->
+<section class="living-heritage-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Philosophy of the Archive · Beyond Monuments</span>
+      <h2 class="section-title">A Living Heritage</h2>
+      <p class="section-desc">
+        India's true heritage breathes everyday in the hands, voices, and collective practices of our rural villages:
+      </p>
+    </div>
+
+    <div class="living-facets-grid">
+      <div class="facet-card"><div class="facet-icon">🌾</div><h3>Farmers' Knowledge</h3><p>Soil texture diagnosis and millet seed saving.</p></div>
+      <div class="facet-card"><div class="facet-icon">🧵</div><h3>Artisans' Skills</h3><p>Natural botanical dyes and pit-loom weaving.</p></div>
+      <div class="facet-card"><div class="facet-icon">🎶</div><h3>Folk Songs</h3><p>Field work verses and rain prayers.</p></div>
+      <div class="facet-card"><div class="facet-icon">📖</div><h3>Oral Stories</h3><p>Living epics narrated across village squares.</p></div>
+      <div class="facet-card"><div class="facet-icon">🍲</div><h3>Traditional Recipes</h3><p>Fermented slow foods and unpolished grains.</p></div>
+      <div class="facet-card"><div class="facet-icon">🎉</div><h3>Local Festivals</h3><p>Solstice gratitude and sacred grove rites.</p></div>
+      <div class="facet-card"><div class="facet-icon">🌿</div><h3>Indigenous Practices</h3><p>Earthen Johad dams and herbal wellness.</p></div>
+      <div class="facet-card"><div class="facet-icon">🏡</div><h3>Village Architecture</h3><p>Lime mortar and passive courtyard airflow.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Heritage Categories -->
+<section class="categories-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Classification · Eight Domains of Memory</span>
+      <h2 class="section-title">Heritage Categories</h2>
+      <p class="section-desc">Explore traditions categorized by practical rural and cultural disciplines.</p>
+    </div>
+
+    <div class="categories-grid">
+      {% for cat in categories %}
+        <a href="{% url 'explore' %}?category={{ cat.id }}" class="category-card">
+          <div class="cat-icon-badge">{{ cat.icon }}</div>
+          <h3>{{ cat.label }}</h3>
+          <p>{{ cat.desc }}</p>
+          <span class="cat-explore-link">Explore Domain →</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 8. Living Traditions Directory & Continuity Profiles -->
+<section class="featured-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Living Traditions · Continuity Profiles</span>
+      <h2 class="section-title">Discover India's Living Traditions</h2>
+      <p class="section-desc">Sample preservation records documenting knowledge holders and transmission vitality.</p>
+    </div>
+
+    <div class="traditions-grid">
+      {% for entry in featured_entries %}
+        <article class="tradition-card">
+          <div class="card-img-wrapper">
+            {% if entry.image_url %}
+              <img src="{{ entry.image_url }}" alt="{{ entry.name }}">
+            {% else %}
+              <img src="{% static 'images/kalamkari_textile_art.jpg' %}" alt="{{ entry.name }}">
+            {% endif %}
+            <span class="card-cat-tag">{{ entry.get_category_display }}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="meta-location">📍 {{ entry.state }}</span>
+              <span class="meta-status">{{ entry.get_preservation_status_display }}</span>
+            </div>
+            <h3 class="card-title">{{ entry.name }}</h3>
+            <p class="card-snippet">{{ entry.short_description|truncatewords:18 }}</p>
+            
+            <div class="continuity-mini-strip">
+              <span>Holders: <strong>{{ entry.knowledge_holders_count }} Elders</strong></span>
+              <span>Learners: <strong>{{ entry.young_practitioners_count }}</strong></span>
+            </div>
+
+            <a href="{% url 'heritage_detail' entry.slug %}" class="card-action">View Continuity Dossier →</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 9. Living Heritage Map Preview -->
+<section class="map-section-preview">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Geographic Atlas · OpenStreetMap</span>
+      <h2 class="section-title">Living Heritage Map</h2>
+      <p class="section-desc">Interactive geographic monitoring of living traditions, at-risk practices, and knowledge holders.</p>
+    </div>
+    
+    <div id="heritage-map-container" class="heritage-map-box"></div>
+    
+    <div class="map-preview-footer">
+      <a href="{% url 'map' %}" class="btn-secondary">Open Fullscreen Living Heritage Map ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Voices of Heritage -->
+<section class="voices-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Oral Histories · Spoken Memory</span>
+      <h2 class="section-title">Voices of Heritage</h2>
+      <p class="section-desc">Preserving oral wisdom directly from village elders, bards, and practitioners.</p>
+    </div>
+
+    <div class="stories-list">
+      {% for story in stories %}
+        <div class="story-item">
+          <div class="story-profile">
+            <img src="{% static 'images/elder_oral_storyteller.jpg' %}" alt="{{ story.contributor }}" class="story-avatar">
+            <div>
+              <span class="story-cat">{{ story.category }}</span>
+              <h4 class="story-author">{{ story.contributor }}</h4>
+              <p class="story-role">{{ story.contributor_role }}</p>
+              <span class="story-loc">📍 {{ story.location }}</span>
+            </div>
+          </div>
+          <div class="story-details">
+            <h3 class="story-title">“{{ story.title }}”</h3>
+            <p class="story-desc">{{ story.description }}</p>
+            <div class="audio-strip">
+              <span class="audio-label">🎧 {{ story.audio_sample_name }}</span>
+              <a href="{% url 'stories' %}" class="btn-listen">Listen & Read Transcript</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 11. Learn From Heritage -->
+<section class="learn-preview-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="kicker-text">Educational Modules · Student Knowledge</span>
+      <h2 class="section-title">Learn From India's Heritage</h2>
+      <p class="section-desc">Structured curricula exploring traditional ecological systems and artisan crafts.</p>
+    </div>
+
+    <div class="modules-preview-grid">
+      {% for mod in modules %}
+        <div class="module-preview-card">
+          <span class="module-cat">{{ mod.category }} · {{ mod.read_time }}</span>
+          <h3>{{ mod.title }}</h3>
+          <p>{{ mod.description|truncatewords:24 }}</p>
+          <a href="{% url 'learn' %}" class="module-link">Read Curriculum & Take Quiz →</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 12. Help Keep a Tradition Alive (Contribution) -->
+<section class="contribute-home-section">
+  <div class="section-container">
+    <div class="contribute-box">
+      <span class="kicker-text">Community Documentation · Open Commons</span>
+      <h2>Help Keep a Tradition Alive</h2>
+      <p>
+        “The knowledge of a farmer, artisan, storyteller or elder can disappear when there is no record of it. Help us preserve that knowledge for future generations.”
+      </p>
+      <a href="{% url 'contribute' %}" class="btn-primary">Preserve a Tradition · Submit for Review</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var mapEl = document.getElementById('heritage-map-container');
+    if (mapEl && typeof L !== 'undefined') {
+      var map = L.map('heritage-map-container', {
+        center: [21.8, 80.5],
+        zoom: 5,
+        scrollWheelZoom: false
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors | Indian Heritage'
+      }).addTo(map);
+
+      var markers = [
+        { name: 'Navadhanya Dryland Farming', lat: 17.6805, lng: 77.6148, loc: 'Zaheerabad, Telangana', status: '🟠 At Risk' },
+        { name: 'Burrakatha Oral Ballads', lat: 16.3067, lng: 80.4365, loc: 'Guntur, Andhra Pradesh', status: '🔴 Critically At Risk' },
+        { name: 'Kalamkari Hand-Drawn Textiles', lat: 13.7498, lng: 79.6984, loc: 'Srikalahasti, Andhra Pradesh', status: '🟡 Declining' },
+        { name: 'Johad Water Check Dams', lat: 27.553, lng: 76.6346, loc: 'Alwar, Rajasthan', status: '🟢 Thriving' }
+      ];
+
+      markers.forEach(function(m) {
+        L.marker([m.lat, m.lng]).addTo(map)
+          .bindPopup('<strong>' + m.name + '</strong><br>' + m.loc + '<br><em>Status: ' + m.status + '</em>');
+      });
+    }
+  });
+</script>
+{% endblock %}

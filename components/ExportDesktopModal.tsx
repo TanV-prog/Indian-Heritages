@@ -39,11 +39,17 @@ npm install
 npm run dev`,
       },
       {
-        title: 'Alternative: Run the Django Backend',
+        title: 'Run Tests (Frontend & Data Integrity)',
+        code: `cd "$HOME\\Desktop\\indian-heritage"
+npm test`,
+      },
+      {
+        title: 'Alternative: Run the Django Backend & Tests',
         code: `# requirements.txt is available at both the root and django_project/
 cd "$HOME\\Desktop\\indian-heritage"
 pip install -r requirements.txt
 cd django_project
+python manage.py test
 python manage.py runserver`,
       },
     ],
@@ -59,10 +65,16 @@ npm install
 npm run dev`,
       },
       {
-        title: 'Alternative: Launch Django Backend',
+        title: 'Run Automated Tests',
+        code: `cd ~/Desktop/indian-heritage
+npm test`,
+      },
+      {
+        title: 'Alternative: Launch Django Backend & Tests',
         code: `cd ~/Desktop/indian-heritage
 pip install -r requirements.txt
 cd django_project
+python manage.py test
 python manage.py runserver`,
       },
     ],
@@ -79,10 +91,16 @@ npm install
 npm run dev`,
       },
       {
-        title: 'Alternative: Launch Django Backend',
+        title: 'Run Automated Tests',
+        code: `cd ~/Desktop/indian-heritage
+npm test`,
+      },
+      {
+        title: 'Alternative: Launch Django Backend & Tests',
         code: `cd ~/Desktop/indian-heritage
 pip install -r requirements.txt
 cd django_project
+python manage.py test
 python manage.py runserver`,
       },
     ],

@@ -1,0 +1,8 @@
+# Django Backend Dependencies
+# Note: Can be run from project root or inside django_project/
+asgiref>=3.8.1
+Django>=5.1.2,<6.0.0
+gunicorn>=23.0.0
+whitenoise>=6.8.2
+python-dotenv>=1.0.1
+sqlparse>=0.5.1

@@ -40,8 +40,10 @@ npm run dev`,
       },
       {
         title: 'Alternative: Run the Django Backend',
-        code: `cd "$HOME\\Desktop\\indian-heritage\\django_project"
+        code: `# requirements.txt is available at both the root and django_project/
+cd "$HOME\\Desktop\\indian-heritage"
 pip install -r requirements.txt
+cd django_project
 python manage.py runserver`,
       },
     ],
@@ -58,10 +60,9 @@ npm run dev`,
       },
       {
         title: 'Alternative: Launch Django Backend',
-        code: `cd ~/Desktop/indian-heritage/django_project
-python3 -m venv venv
-source venv/bin/activate
+        code: `cd ~/Desktop/indian-heritage
 pip install -r requirements.txt
+cd django_project
 python manage.py runserver`,
       },
     ],
@@ -76,6 +77,13 @@ unzip ~/Downloads/indian_heritage_platform_full_project.zip -d ~/Desktop/indian-
         code: `cd ~/Desktop/indian-heritage
 npm install
 npm run dev`,
+      },
+      {
+        title: 'Alternative: Launch Django Backend',
+        code: `cd ~/Desktop/indian-heritage
+pip install -r requirements.txt
+cd django_project
+python manage.py runserver`,
       },
     ],
   };
